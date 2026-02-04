@@ -3,31 +3,38 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: mahkilic <mahkilic@student.42.fr>            +#+                      #
+#    By: mahkilic <mahkilic@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
-#    Created: 2026/01/31 00:59:09 by mahkilic      #+#    #+#                  #
-#    Updated: 2026/02/04 16:32:37 by mahkilic      ########   odam.nl          #
+#    Created: 2026/02/04 15:08:08 by mahkilic      #+#    #+#                  #
+#    Updated: 2026/02/04 16:34:11 by mahkilic      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			= megaphone
+NAME			= PhoneBook
 CC				= c++
-CPPFLAGS		= -Wall -Wextra -Werror 
-SRCS			= megaphone.cpp
-OBJS			= $(SRCS:%.cpp=%.o)
+CPPFLAGS		= -Wall -Wextra -Werror
+
+SRCS			= 	src/main.cpp src/Contact.cpp src/PhoneBook.cpp
+OBJDIR			= obj
+OBJS			= $(SRCS:src/%.cpp=$(OBJDIR)/%.o)
 
 all			: $(NAME)
+
 
 $(NAME)		: $(OBJS)
 	@ echo "$(NAME) compiling..."
 	@ $(CC) $^ $(CPPFLAGS) -o $(NAME)
 	@ echo "$(NAME) made!"
 	
-$(OBJS)%.o:$(SRCS)
+
+$(OBJDIR):
+	@ mkdir -p $(OBJDIR)
+
+$(OBJDIR)/%.o: src/%.cpp | $(OBJDIR)
 	@ $(CC) $(CPPFLAGS) -c $< -o $@
 
 clean		: 
-	@ rm -rf $(OBJS)
+	@ rm -rf $(OBJDIR)
 
 fclean		: clean
 	@ rm -f $(NAME)
