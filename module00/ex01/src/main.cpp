@@ -17,6 +17,5 @@ int	main(void)
 	PhoneBook	phoneBook;
 
 	phoneBook.start();
-	phoneBook.getCommand();
-	return (0);
+	exit (EXIT_SUCCESS);
 }

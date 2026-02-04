@@ -24,8 +24,8 @@ class PhoneBook
 private:
 	Contact	contacts[8];
 public:
+	void	menu();
 	void	start();
-	void	getCommand();
 	void	addContact(int &index);
 	void	searchContact(int index);
 };

@@ -12,39 +12,47 @@
 
 #include "../include/PhoneBook.hpp"
 
-void	PhoneBook::start()
+void	PhoneBook::menu()
 {
-	std::cout << "Welcome to your PhoneBook!" << std::endl;
-	std::cout << "You can use the following commands:" << std::endl;
-	std::cout << "ADD - to add a new contact" << std::endl;
-	std::cout << "SEARCH - to search for a contact" << std::endl;
-	std::cout << "EXIT - to exit the program" <<  std::endl;
+	std::cout << "┏━━━━━━━━━━━━━━━━━━━━━━▲▼━━━━━━━━━━━━━━━━━━━━━━┓" << std::endl;
+	std::cout << "|                                              |" << std::endl;
+	std::cout << "|                 DE PHONEBOOK                 |" << std::endl;
+	std::cout << "|                                              |" << std::endl;
+	std::cout << "|       You can use a following command:       |" << std::endl;
+	std::cout << "|                                              |" << std::endl;
+	std::cout << "|       ADD    ➔ to add a new contact          |" << std::endl;
+	std::cout << "|       SEARCH ➔ to search for a contact       |" << std::endl;
+	std::cout << "|       EXIT   ➔ to exit the phonebook         |" <<  std::endl;
+	std::cout << "|                                              |" << std::endl;
+	std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━▼▲━━━━━━━━━━━━━━━━━━━━━━┛" << std::endl;
 }
 
-void	PhoneBook::getCommand()
+void	PhoneBook::start()
 {
-	std::string	command;
+	std::string	input;
 	int index = 1;
 	while (1)
 	{
-		std::cout << "Enter command: ";
-		std::getline(std::cin, command);
-		if (command == "ADD")
+		PhoneBook::menu();
+		std::cout << "" << std::endl;
+		std::cout << "Enter a command: ";
+		std::getline(std::cin, input);
+		if (input == "ADD")
 		{
 			PhoneBook::addContact(index);
 		}
-		else if (command == "SEARCH")
+		else if (input == "SEARCH")
 		{
 			PhoneBook::searchContact(index);
 		}
-		else if (command == "EXIT")
+		else if (input == "EXIT")
 		{
 			std::cout << "Exiting PhoneBook. Goodbye!" << std::endl;
 			exit (EXIT_SUCCESS);
 		}
 		else
 		{
-			std::cout << "Invalid command. Please try again." << std::endl;
+			std::cout << "Invalid input. Please try again." << std::endl;
 			continue;
 		}
 	}
@@ -57,7 +65,7 @@ void	PhoneBook::addContact(int &index)
 	if (index >= 8)
 	{
 		std::cout << "PhoneBook is full. Overwriting the oldest contact." << std::endl;
-		index = 0;
+		index = 1;
 	}
 	std::cout << "First Name: ";
 	std::getline(std::cin, input);
@@ -74,6 +82,7 @@ void	PhoneBook::addContact(int &index)
 	std::cout << "Darkest Secret: ";
 	std::getline(std::cin, input);
 	contacts[index].setDarkestSecret(input);
+	std::cout << "Contact has been succesfully saved!" << std::endl;
 	if (index < 8)
 		index++;
 }
@@ -88,9 +97,9 @@ void	PhoneBook::searchContact(int index)
 		std::cout << "No contacts available. Please add a contact first." << std::endl;
 		return ;
 	}
-	searchIndex = 0;
+	searchIndex = 1;
 	std::cout << "Available contacts:" << std::endl;
-	for (int i = 0; i < index && i < 8; i++)
+	for (int i = 1; i < index && i <= 8; i++)
 	{
 		std::cout << i << ": " << contacts[i].getFirstName() << " " << contacts[i].getLastName() << std::endl;
 	}
