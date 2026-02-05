@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/Contact.hpp"
+#include <iomanip>
 
 void	Contact::setFirstName(std::string firstName)
 {

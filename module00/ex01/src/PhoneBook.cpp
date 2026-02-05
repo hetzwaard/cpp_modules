@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/PhoneBook.hpp"
+#include <iomanip>
 
 void	PhoneBook::menu()
 {
@@ -22,7 +23,7 @@ void	PhoneBook::menu()
 	std::cout << "|                                              |" << std::endl;
 	std::cout << "|       ADD    ➔ to add a new contact          |" << std::endl;
 	std::cout << "|       SEARCH ➔ to search for a contact       |" << std::endl;
-	std::cout << "|       EXIT   ➔ to exit the phonebook         |" <<  std::endl;
+	std::cout << "|       EXIT   ➔ to exit the phonebook         |" << std::endl;
 	std::cout << "|                                              |" << std::endl;
 	std::cout << "┗━━━━━━━━━━━━━━━━━━━━━━▼▲━━━━━━━━━━━━━━━━━━━━━━┛" << std::endl;
 }
@@ -58,6 +59,31 @@ void	PhoneBook::start()
 	}
 }
 
+int	PhoneBook::parseIndex(std::string input, bool &valid)
+{
+	if (input.empty())
+	{
+		valid = false;
+		return (-1);
+	}
+	for (size_t i = 0; i < input.size(); ++i)
+	{
+		if (!std::isdigit(static_cast<unsigned char>(input[i])))
+		{
+			valid = false;
+			return (-1);
+		}
+	}
+	try {
+		int index = std::stoi(input);
+		valid = true;
+		return (index);
+	} catch (const std::exception &e) {
+		valid = false;
+		return (-1);
+	}
+}
+
 void	PhoneBook::addContact(int &index)
 {
 	std::string	input;
@@ -69,28 +95,66 @@ void	PhoneBook::addContact(int &index)
 	}
 	std::cout << "First Name: ";
 	std::getline(std::cin, input);
+	while (input.empty())
+	{
+		std::cout << "First Name cannot be empty. Please enter again." << std::endl;
+		std::cout << "First Name: ";
+		std::getline(std::cin, input);
+	}
 	contacts[index].setFirstName(input);
 	std::cout << "Last Name: ";
 	std::getline(std::cin, input);
+	while (input.empty())
+	{
+		std::cout << "Last Name cannot be empty. Please enter again: " << std::endl;
+		std::cout << "Last Name: ";
+		std::getline(std::cin, input);
+	}
 	contacts[index].setLastName(input);
 	std::cout << "Nickname: ";
 	std::getline(std::cin, input);
+	while (input.empty())
+	{
+		std::cout << "Nickname cannot be empty. Please enter again: " << std::endl;
+		std::cout << "Nickname: ";
+		std::getline(std::cin, input);
+	}
 	contacts[index].setNickName(input);
 	std::cout << "Phone Number: ";
 	std::getline(std::cin, input);
+	while (input.empty())
+	{
+		std::cout << "Phone Number cannot be empty. Please enter again: " << std::endl;
+		std::cout << "Phone Number: ";
+		std::getline(std::cin, input);
+	}
 	contacts[index].setPhoneNumber(input);
 	std::cout << "Darkest Secret: ";
 	std::getline(std::cin, input);
+	while (input.empty())
+	{
+		std::cout << "Darkest Secret cannot be empty. Please enter again: " << std::endl;
+		std::cout << "Darkest Secret: ";
+		std::getline(std::cin, input);
+	}
 	contacts[index].setDarkestSecret(input);
 	std::cout << "Contact has been succesfully saved!" << std::endl;
 	if (index < 8)
 		index++;
 }
 
+std::string	PhoneBook::formatString(std::string str)
+{
+	if (str.length() > 10)
+		return (str.substr(0, 9) + ".");
+	return (str);
+}
+
 void	PhoneBook::searchContact(int index)
 {
 	std::string	input;
 	int			searchIndex;
+	bool			valid;
 
 	if (index < 1)
 	{
@@ -105,8 +169,8 @@ void	PhoneBook::searchContact(int index)
 	}
 	std::cout << "Enter the index of the contact to view details: ";
 	std::getline(std::cin, input);
-	searchIndex = std::stoi(input);
-	if (searchIndex < 0 || searchIndex >= index || searchIndex >= 8)
+	searchIndex = PhoneBook::parseIndex(input, valid);
+	if (!valid || searchIndex < 1 || searchIndex >= index || searchIndex > 8)
 	{
 		std::cout << "Invalid index. Please try again." << std::endl;
 		return ;
@@ -118,3 +182,4 @@ void	PhoneBook::searchContact(int index)
 	std::cout << "Phone Number: " << contacts[searchIndex].getPhoneNumber() << std::endl;
 	std::cout << "Darkest Secret: " << contacts[searchIndex].getDarkestSecret() << std::endl;
 }
+

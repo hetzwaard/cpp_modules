@@ -24,10 +24,12 @@ class PhoneBook
 private:
 	Contact	contacts[8];
 public:
-	void	menu();
-	void	start();
-	void	addContact(int &index);
-	void	searchContact(int index);
+	void				menu();
+	void				start();
+	void				addContact(int &index);
+	void				searchContact(int index);
+	std::string		formatString(std::string str);
+	int				parseIndex(std::string input, bool &valid);
 };
 
 #endif
