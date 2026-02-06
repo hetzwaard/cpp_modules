@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/PhoneBook.hpp"
-#include <iomanip>
 
 void	PhoneBook::menu()
 {
@@ -31,20 +30,26 @@ void	PhoneBook::menu()
 void	PhoneBook::start()
 {
 	std::string	input;
-	int index = 1;
+	count = 0;
+	nextIndex = 0;
 	while (1)
 	{
 		PhoneBook::menu();
 		std::cout << "" << std::endl;
 		std::cout << "Enter a command: ";
 		std::getline(std::cin, input);
+		if (!std::cin)
+		{
+			std::cout << std::endl << "Input closed. Exiting PhoneBook." << std::endl;
+			exit (EXIT_SUCCESS);
+		}
 		if (input == "ADD")
 		{
-			PhoneBook::addContact(index);
+			PhoneBook::addContact();
 		}
 		else if (input == "SEARCH")
 		{
-			PhoneBook::searchContact(index);
+			PhoneBook::searchContact();
 		}
 		else if (input == "EXIT")
 		{
@@ -74,73 +79,68 @@ int	PhoneBook::parseIndex(std::string input, bool &valid)
 			return (-1);
 		}
 	}
-	try {
-		int index = std::stoi(input);
-		valid = true;
-		return (index);
-	} catch (const std::exception &e) {
+	std::stringstream	ss(input);
+	int					index;
+	ss >> index;
+	if (ss.fail())
+	{
 		valid = false;
 		return (-1);
 	}
+	valid = true;
+	return (index);
 }
 
-void	PhoneBook::addContact(int &index)
+
+static bool	isBlank(const std::string &str)
+{
+	for (size_t i = 0; i < str.size(); ++i)
+	{
+		if (!std::isspace(static_cast<unsigned char>(str[i])))
+			return (false);
+	}
+	return (true);
+}
+
+static bool	readNonEmptyField(const std::string &label, std::string &out)
+{
+	std::cout << label;
+	std::getline(std::cin, out);
+	if (!std::cin)
+		return (false);
+	while (isBlank(out))
+	{
+		std::cout << label << " cannot be empty. Please enter again." << std::endl;
+		std::cout << label;
+		std::getline(std::cin, out);
+		if (!std::cin)
+			return (false);
+	}
+	return (true);
+}
+
+void	PhoneBook::addContact()
 {
 	std::string	input;
-
-	if (index >= 8)
-	{
-		std::cout << "PhoneBook is full. Overwriting the oldest contact." << std::endl;
-		index = 1;
-	}
-	std::cout << "First Name: ";
-	std::getline(std::cin, input);
-	while (input.empty())
-	{
-		std::cout << "First Name cannot be empty. Please enter again." << std::endl;
-		std::cout << "First Name: ";
-		std::getline(std::cin, input);
-	}
-	contacts[index].setFirstName(input);
-	std::cout << "Last Name: ";
-	std::getline(std::cin, input);
-	while (input.empty())
-	{
-		std::cout << "Last Name cannot be empty. Please enter again: " << std::endl;
-		std::cout << "Last Name: ";
-		std::getline(std::cin, input);
-	}
-	contacts[index].setLastName(input);
-	std::cout << "Nickname: ";
-	std::getline(std::cin, input);
-	while (input.empty())
-	{
-		std::cout << "Nickname cannot be empty. Please enter again: " << std::endl;
-		std::cout << "Nickname: ";
-		std::getline(std::cin, input);
-	}
-	contacts[index].setNickName(input);
-	std::cout << "Phone Number: ";
-	std::getline(std::cin, input);
-	while (input.empty())
-	{
-		std::cout << "Phone Number cannot be empty. Please enter again: " << std::endl;
-		std::cout << "Phone Number: ";
-		std::getline(std::cin, input);
-	}
-	contacts[index].setPhoneNumber(input);
-	std::cout << "Darkest Secret: ";
-	std::getline(std::cin, input);
-	while (input.empty())
-	{
-		std::cout << "Darkest Secret cannot be empty. Please enter again: " << std::endl;
-		std::cout << "Darkest Secret: ";
-		std::getline(std::cin, input);
-	}
-	contacts[index].setDarkestSecret(input);
+	if (!readNonEmptyField("First Name: ", input))
+		return ;
+	contacts[nextIndex].setFirstName(input);
+	if (!readNonEmptyField("Last Name: ", input))
+		return ;
+	contacts[nextIndex].setLastName(input);
+	if (!readNonEmptyField("Nickname: ", input))
+		return ;
+	contacts[nextIndex].setNickName(input);
+	if (!readNonEmptyField("Phone Number: ", input))
+		return ;
+	contacts[nextIndex].setPhoneNumber(input);
+	if (!readNonEmptyField("Darkest Secret: ", input))
+		return ;
+	contacts[nextIndex].setDarkestSecret(input);
 	std::cout << "Contact has been succesfully saved!" << std::endl;
-	if (index < 8)
-		index++;
+	if (count < 8)
+		count++;
+	nextIndex = (nextIndex + 1) % 8;
 }
 
 std::string	PhoneBook::formatString(std::string str)
@@ -150,31 +150,40 @@ std::string	PhoneBook::formatString(std::string str)
 	return (str);
 }
 
-void	PhoneBook::searchContact(int index)
+void	PhoneBook::searchContact()
 {
 	std::string	input;
 	int			searchIndex;
 	bool			valid;
 
-	if (index < 1)
+	if (count == 0)
 	{
 		std::cout << "No contacts available. Please add a contact first." << std::endl;
 		return ;
 	}
-	searchIndex = 1;
+	searchIndex = 0;
 	std::cout << "Available contacts:" << std::endl;
-	for (int i = 1; i < index && i <= 8; i++)
+	std::cout << "|" << std::setw(10) << "Index"
+			  << "|" << std::setw(10) << "First Name"
+			  << "|" << std::setw(10) << "Last Name"
+			  << "|" << std::setw(10) << "Nickname" << "|" << std::endl;
+	for (int i = 0; i < count; i++)
 	{
-		std::cout << i << ": " << contacts[i].getFirstName() << " " << contacts[i].getLastName() << std::endl;
+		std::cout << "|" << std::setw(10) << (i + 1)
+					 << "|" << std::setw(10) << PhoneBook::formatString(contacts[i].getFirstName())
+					 << "|" << std::setw(10) << PhoneBook::formatString(contacts[i].getLastName())
+					 << "|" << std::setw(10) << PhoneBook::formatString(contacts[i].getNickName())
+					 << "|" << std::endl;
 	}
 	std::cout << "Enter the index of the contact to view details: ";
 	std::getline(std::cin, input);
 	searchIndex = PhoneBook::parseIndex(input, valid);
-	if (!valid || searchIndex < 1 || searchIndex >= index || searchIndex > 8)
+	if (!valid || searchIndex < 1 || searchIndex > count)
 	{
 		std::cout << "Invalid index. Please try again." << std::endl;
 		return ;
 	}
+	searchIndex -= 1;
 	std::cout << "Contact Details:" << std::endl;
 	std::cout << "First Name: " << contacts[searchIndex].getFirstName() << std::endl;
 	std::cout << "Last Name: " << contacts[searchIndex].getLastName() << std::endl;
@@ -182,4 +191,3 @@ void	PhoneBook::searchContact(int index)
 	std::cout << "Phone Number: " << contacts[searchIndex].getPhoneNumber() << std::endl;
 	std::cout << "Darkest Secret: " << contacts[searchIndex].getDarkestSecret() << std::endl;
 }
-

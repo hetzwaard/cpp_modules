@@ -14,8 +14,11 @@
 # define PHONEBOOK_HPP
 
 # include <iostream>
+# include <iomanip>
+# include <sstream>
 # include <string>
 # include <cstring>
+# include <cstdlib>
 # include <cctype>
 # include "Contact.hpp"
 
@@ -23,11 +26,13 @@ class PhoneBook
 {
 private:
 	Contact	contacts[8];
+	int		count;
+	int		nextIndex;
 public:
 	void				menu();
 	void				start();
-	void				addContact(int &index);
-	void				searchContact(int index);
+	void				addContact();
+	void				searchContact();
 	std::string		formatString(std::string str);
 	int				parseIndex(std::string input, bool &valid);
 };
