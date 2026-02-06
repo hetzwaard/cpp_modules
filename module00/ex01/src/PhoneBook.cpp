@@ -35,7 +35,7 @@ void	PhoneBook::start()
 	while (1)
 	{
 		PhoneBook::menu();
-		std::cout << "" << std::endl;
+		std::cout << std::endl;
 		std::cout << "Enter a command: ";
 		std::getline(std::cin, input);
 		if (!std::cin)
