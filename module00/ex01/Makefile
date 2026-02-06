@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME			= PhoneBook
+NAME			= dephonebook
 CC				= c++
 CPPFLAGS		= -Wall -Wextra -Werror
 
