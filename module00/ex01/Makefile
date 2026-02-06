@@ -20,13 +20,11 @@ OBJS			= $(SRCS:src/%.cpp=$(OBJDIR)/%.o)
 
 all			: $(NAME)
 
-
 $(NAME)		: $(OBJS)
 	@ echo "$(NAME) compiling..."
 	@ $(CC) $^ $(CPPFLAGS) -o $(NAME)
 	@ echo "$(NAME) made!"
 	
-
 $(OBJDIR):
 	@ mkdir -p $(OBJDIR)
 
