@@ -164,9 +164,9 @@ void	PhoneBook::searchContact()
 	searchIndex = 0;
 	std::cout << "Available contacts:" << std::endl;
 	std::cout << "|" << std::setw(10) << "Index"
-			  << "|" << std::setw(10) << "First Name"
-			  << "|" << std::setw(10) << "Last Name"
-			  << "|" << std::setw(10) << "Nickname" << "|" << std::endl;
+				 << "|" << std::setw(10) << "First Name"
+				 << "|" << std::setw(10) << "Last Name"
+				 << "|" << std::setw(10) << "Nickname" << "|" << std::endl;
 	for (int i = 0; i < count; i++)
 	{
 		std::cout << "|" << std::setw(10) << (i + 1)
