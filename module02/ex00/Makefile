@@ -6,13 +6,13 @@
 #    By: mahkilic <mahkilic@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2026/02/10 13:27:04 by mahkilic      #+#    #+#                  #
-#    Updated: 2026/02/10 16:09:53 by mahkilic      ########   odam.nl          #
+#    Updated: 2026/02/10 16:33:33 by mahkilic      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= fixed
 CC				= c++
-CPPFLAGS		= -Wall -Wextra -Werror
+#CPPFLAGS		= -Wall -Wextra -Werror
 
 SRCS			= src/main.cpp src/Fixed.cpp
 OBJDIR			= obj
