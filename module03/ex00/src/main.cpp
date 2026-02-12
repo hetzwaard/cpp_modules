@@ -6,7 +6,7 @@
 /*   By: mahkilic <mahkilic@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2026/02/12 20:33:48 by mahkilic      #+#    #+#                 */
-/*   Updated: 2026/02/12 21:06:49 by mahkilic      ########   odam.nl         */
+/*   Updated: 2026/02/12 23:01:00 by mahkilic      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,33 @@
 
 int	main(void)
 {
-	ClapTrap	a("Alpha");
-	ClapTrap	b("Beta");
+	ClapTrap	alpha("Alpha");
+	ClapTrap	beta("Beta");
 
-	a.attack("Beta");
-	b.takeDamage(3);
-	b.beRepaired(2);
+	std::cout << "--- initial state ---" << std::endl;
+	alpha.status();
+	beta.status();
 
-	for (int i = 0; i < 11; i++)
-		a.attack("Beta");
+	std::cout << "\n--- alpha attacks beta ---" << std::endl;
+	alpha.attack("Beta");
+	alpha.status();
+	beta.status();
 
-	b.takeDamage(20);
-	b.beRepaired(5);
+	std::cout << "\n--- beta takes damage and repairs ---" << std::endl;
+	beta.takeDamage(4);
+	beta.beRepaired(2);
+	beta.status();
+
+	std::cout << "\n--- drain alpha energy ---" << std::endl;
+	for (int i = 0; i < 10; ++i)
+		alpha.attack("Beta");
+	alpha.status();
+
+	std::cout << "\n--- kill beta and try actions at 0 HP ---" << std::endl;
+	beta.takeDamage(100);
+	beta.attack("Alpha");
+	beta.beRepaired(1);
+	beta.status();
 
 	return (0);
 }

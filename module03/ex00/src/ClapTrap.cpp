@@ -17,7 +17,10 @@ ClapTrap::ClapTrap() : _name("default"), _hit(10), _energy(10), _attack(0)
 	std::cout << "ClapTrap default constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(const std::string &name) : _name(name), _hit(10), _energy(10), _attack(0) {}
+ClapTrap::ClapTrap(const std::string &name) : _name(name), _hit(10), _energy(10), _attack(0)
+{
+	std::cout << "ClapTrap constructor called for " << _name << std::endl;
+}
 
 ClapTrap::ClapTrap(const ClapTrap &other)
 {
@@ -81,4 +84,10 @@ void	ClapTrap::beRepaired(unsigned int amount)
 	_hit += amount;
 
 	std::cout << "ClapTrap " << _name << " repairs " << amount << " hit points, hit points now: " << _hit << std::endl;
+}
+
+void	ClapTrap::status(void) const
+{
+	std::cout << "[" << _name << "] HP=" << _hit << ", EP=" << _energy
+		<< ", AD=" << _attack << std::endl;
 }
