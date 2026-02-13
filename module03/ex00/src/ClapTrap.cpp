@@ -6,7 +6,7 @@
 /*   By: mahkilic <mahkilic@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2026/02/12 20:34:09 by mahkilic      #+#    #+#                 */
-/*   Updated: 2026/02/12 21:13:43 by mahkilic      ########   odam.nl         */
+/*   Updated: 2026/02/13 12:32:29 by mahkilic      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ void	ClapTrap::beRepaired(unsigned int amount)
 	std::cout << "ClapTrap " << _name << " repairs " << amount << " hit points, hit points now: " << _hit << std::endl;
 }
 
-void	ClapTrap::status(void) const
-{
-	std::cout << "[" << _name << "] HP=" << _hit << ", EP=" << _energy
-		<< ", AD=" << _attack << std::endl;
-}
+//void	ClapTrap::status(void) const
+//{
+//	std::cout << "[" << _name << "] HP=" << _hit << ", EP=" << _energy
+//		<< ", AD=" << _attack << std::endl;
+//}

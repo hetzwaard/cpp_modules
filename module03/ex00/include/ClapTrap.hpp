@@ -6,7 +6,7 @@
 /*   By: mahkilic <mahkilic@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2026/02/12 20:30:38 by mahkilic      #+#    #+#                 */
-/*   Updated: 2026/02/12 20:58:11 by mahkilic      ########   odam.nl         */
+/*   Updated: 2026/02/13 12:32:44 by mahkilic      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ public:
 	void attack(const std::string& target);
 	void takeDamage(unsigned int amount);
 	void beRepaired(unsigned int amount);
-	void status(void) const;
+	//void status(void) const;
 };
 
 
