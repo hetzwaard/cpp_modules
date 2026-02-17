@@ -92,12 +92,10 @@ void	MateriaSource::learnMateria(AMateria *m)
 		if (_memory[i] == 0)
 		{
 			_memory[i] = m->clone();
-			delete m;
 			return ;
 		}
 		i++;
 	}
-	delete m;
 }
 
 AMateria	*MateriaSource::createMateria(std::string const &type)
