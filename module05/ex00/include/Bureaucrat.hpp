@@ -6,7 +6,7 @@
 /*   By: mahkilic <mahkilic@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2026/02/18 00:34:19 by mahkilic      #+#    #+#                 */
-/*   Updated: 2026/02/18 00:34:19 by mahkilic      ########   odam.nl         */
+/*   Updated: 2026/02/18 15:09:04 by mahkilic      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ public:
 	class GradeTooHighException : public std::exception
 	{
 		public:
-			virtual const char	*what(void) const throw();
+			const char	*what(void) const throw();
 	};
 
 	class GradeTooLowException : public std::exception
 	{
 		public:
-			virtual const char	*what(void) const throw();
+			const char	*what(void) const throw();
 	};
 };
 

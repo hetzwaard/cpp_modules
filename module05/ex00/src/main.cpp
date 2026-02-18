@@ -6,7 +6,7 @@
 /*   By: mahkilic <mahkilic@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2026/02/18 00:34:06 by mahkilic      #+#    #+#                 */
-/*   Updated: 2026/02/18 00:34:06 by mahkilic      ########   odam.nl         */
+/*   Updated: 2026/02/18 14:53:06 by mahkilic      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(void)
 	std::cout << "=== Valid case ===" << std::endl;
 	try
 	{
-		Bureaucrat	a("Alice", 2);
+		Bureaucrat	a("Joe", 2);
 		std::cout << a << std::endl;
 		a.incrementGrade();
 		std::cout << a << std::endl;
@@ -53,6 +53,7 @@ int	main(void)
 		std::cout << "Exception for grade 0: " << e.what() << std::endl;
 	}
 
+	std::cout << std::endl << "=== Invalid constructor case ===" << std::endl;
 	try
 	{
 		Bureaucrat	d("TooLow", 151);
@@ -62,5 +63,6 @@ int	main(void)
 	{
 		std::cout << "Exception for grade 151: " << e.what() << std::endl;
 	}
+
 	return (0);
 }
