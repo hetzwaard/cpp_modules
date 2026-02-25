@@ -6,7 +6,7 @@
 /*   By: mahkilic <mahkilic@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2026/02/25 15:07:49 by mahkilic      #+#    #+#                 */
-/*   Updated: 2026/02/25 16:20:30 by mahkilic      ########   odam.nl         */
+/*   Updated: 2026/02/25 21:03:54 by mahkilic      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,7 @@ static bool	isPseudoDoubleLiteral(const std::string &input)
 
 static bool	isCharLiteral(const std::string &input)
 {
-	if (input.length() == 1
-		&& !std::isdigit(static_cast<unsigned char>(input[0])))
+	if (input.length() == 1 && !std::isdigit(static_cast<unsigned char>(input[0])))
 		return (true);
 	if (input.length() == 3 && input[0] == '\'' && input[2] == '\'')
 		return (true);
