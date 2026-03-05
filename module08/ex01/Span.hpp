@@ -6,7 +6,7 @@
 /*   By: mahkilic <mahkilic@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2026/03/04 09:20:41 by mahkilic      #+#    #+#                 */
-/*   Updated: 2026/03/04 09:38:24 by mahkilic      ########   odam.nl         */
+/*   Updated: 2026/03/05 12:40:08 by mahkilic      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,14 @@ public:
 	void	addNumber(int n);
 
 	template <typename InputIterator>
-	void	addNumbers(InputIterator first, InputIterator last);
+	void	addNumbers(InputIterator first, InputIterator last)
+	{
+		while (first != last)
+		{
+			addNumber(*first);
+			++first;
+		}
+	}
 
 	unsigned int	shortestSpan() const;
 	unsigned int	longestSpan() const;

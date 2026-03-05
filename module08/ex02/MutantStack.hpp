@@ -21,11 +21,11 @@ template <typename T, typename Container = std::deque<T> >
 class MutantStack : public std::stack<T, Container>
 {
 public:
-	using	Base = std::stack<T, Container>;
-	using	iterator = typename Base::container_type::iterator;
-	using	const_iterator = typename Base::container_type::const_iterator;
-	using	reverse_iterator = typename Base::container_type::reverse_iterator;
-	using	const_reverse_iterator = typename Base::container_type::const_reverse_iterator;
+	typedef std::stack<T, Container> Base;
+	typedef typename Base::container_type::iterator iterator;
+	typedef typename Base::container_type::const_iterator const_iterator;
+	typedef typename Base::container_type::reverse_iterator reverse_iterator;
+	typedef typename Base::container_type::const_reverse_iterator const_reverse_iterator;
 
 	iterator				begin() { return this->c.begin(); }
 	iterator				end() { return this->c.end(); }
