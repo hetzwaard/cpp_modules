@@ -157,10 +157,11 @@ void	BitcoinExchange::processInput(const std::string &filename)
 			continue;
 		}
 
-		double	value;
+		double		value;
+		std::size_t	pos;
 		try
 		{
-			value = std::stod(valueStr);
+			value = std::stod(valueStr, &pos);
 		}
 		catch (...)
 		{
@@ -168,6 +169,11 @@ void	BitcoinExchange::processInput(const std::string &filename)
 			continue;
 		}
 
+		if (pos != valueStr.size())
+		{
+			std::cerr << "Error: bad input => " << valueStr << std::endl;
+			continue;
+		}
 		if (value < 0)
 		{
 			std::cerr << "Error: not a positive number." << std::endl;
