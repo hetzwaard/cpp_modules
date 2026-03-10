@@ -259,15 +259,15 @@ void	PmergeMe::run()
 		std::cout << " " << _vec[i];
 	std::cout << std::endl;
 
-	std::clock_t	startVec = std::clock();
+	auto	startVec = std::chrono::high_resolution_clock::now();
 	sortVector();
-	std::clock_t	endVec = std::clock();
-	double			timeVec = static_cast<double>(endVec - startVec) / CLOCKS_PER_SEC * 1000000;
+	auto	endVec = std::chrono::high_resolution_clock::now();
+	double	timeVec = std::chrono::duration<double, std::micro>(endVec - startVec).count();
 
-	std::clock_t	startDeq = std::clock();
+	auto	startDeq = std::chrono::high_resolution_clock::now();
 	sortDeque();
-	std::clock_t	endDeq = std::clock();
-	double			timeDeq = static_cast<double>(endDeq - startDeq) / CLOCKS_PER_SEC * 1000000;
+	auto	endDeq = std::chrono::high_resolution_clock::now();
+	double	timeDeq = std::chrono::duration<double, std::micro>(endDeq - startDeq).count();
 
 	std::cout << "After:";
 	for (std::size_t i = 0; i < _vec.size(); i++)
